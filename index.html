@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Eletro — Loja de eletrodomésticos e eletrônicos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#10233A;
+    --navy-2:#183350;
+    --coral:#E8623D;
+    --coral-dark:#B84A2C;
+    --teal:#2E948E;
+    --cream:#F6F4EF;
+    --paper:#FFFFFF;
+    --ink:#16222E;
+    --ink-soft:#5B6670;
+    --line:#E4E1D8;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  h1,h2,h3,.logo{font-family:'Space Grotesk',sans-serif;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  a{color:inherit;text-decoration:none;}
+
+  /* HEADER */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:var(--navy);
+    color:#fff;
+  }
+  .header-inner{
+    max-width:1160px;margin:0 auto;padding:16px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .logo{font-size:30px;font-weight:700;letter-spacing:-0.01em;color:#fff;display:flex;align-items:center;gap:8px;}
+  .logo span{color:var(--coral);}
+  nav{display:flex;gap:28px;}
+  nav a{font-size:14px;font-weight:500;color:#C9D3DC;transition:color .15s;}
+  nav a:hover{color:#fff;}
+  .header-actions{display:flex;align-items:center;gap:18px;}
+  .cart-btn{
+    position:relative;display:flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,0.08);padding:9px 16px;border-radius:999px;
+    color:#fff;font-size:14px;font-weight:500;
+  }
+  .cart-btn:hover{background:rgba(255,255,255,0.15);}
+  .cart-count{
+    background:var(--coral);color:#fff;font-size:11px;font-weight:600;
+    width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  }
+
+  /* HERO */
+  .hero{
+    max-width:1160px;margin:0 auto;padding:64px 24px 56px;
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;
+  }
+  .hero-eyebrow{color:var(--teal);font-weight:600;font-size:14px;margin-bottom:14px;}
+  .hero h1{
+    font-size:44px;line-height:1.12;font-weight:700;color:var(--navy);
+    letter-spacing:-0.01em;max-width:520px;
+  }
+  .hero p{margin-top:18px;font-size:16px;color:var(--ink-soft);max-width:460px;}
+  .hero-cta{margin-top:30px;display:flex;gap:14px;align-items:center;}
+  .btn-primary{
+    background:var(--coral);color:#fff;padding:13px 26px;border-radius:10px;
+    font-weight:600;font-size:15px;transition:background .15s;
+  }
+  .btn-primary:hover{background:var(--coral-dark);}
+  .btn-ghost{
+    padding:13px 20px;font-weight:600;font-size:15px;color:var(--navy);
+    border:1.5px solid var(--line);border-radius:10px;transition:border-color .15s;
+  }
+  .btn-ghost:hover{border-color:var(--navy);}
+  .hero-art{
+    background:var(--navy-2);border-radius:20px;padding:36px;
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  }
+  .hero-art .tile{
+    background:rgba(255,255,255,0.06);border-radius:14px;padding:20px;
+    display:flex;flex-direction:column;gap:8px;color:#fff;
+  }
+  .hero-art .tile svg{width:30px;height:30px;stroke:var(--coral);}
+  .hero-art .tile b{font-size:20px;font-weight:700;}
+  .hero-art .tile span{font-size:12px;color:#AEBBC7;}
+
+  /* CATEGORY STRIP */
+  .cat-strip{max-width:1160px;margin:0 auto;padding:0 24px 40px;}
+  .cat-strip h2{font-size:22px;color:var(--navy);margin-bottom:18px;}
+  .cat-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .cat-chip{
+    display:flex;align-items:center;gap:8px;padding:10px 18px;
+    background:var(--paper);border:1.5px solid var(--line);border-radius:999px;
+    font-size:14px;font-weight:500;color:var(--ink);transition:all .15s;
+  }
+  .cat-chip svg{width:18px;height:18px;stroke:var(--teal);}
+  .cat-chip.active,.cat-chip:hover{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .cat-chip.active svg,.cat-chip:hover svg{stroke:var(--coral);}
+
+  /* PRODUCTS */
+  .products{max-width:1160px;margin:0 auto;padding:0 24px 80px;}
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;
+  }
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;display:flex;flex-direction:column;gap:14px;transition:box-shadow .15s;
+  }
+  .card:hover{box-shadow:0 8px 24px rgba(16,35,58,0.08);}
+  .card-icon{
+    width:64px;height:64px;border-radius:12px;background:#EFF3F1;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .card-icon svg{width:34px;height:34px;stroke:var(--navy);}
+  .card-tag{font-size:12px;font-weight:600;color:var(--teal);text-transform:none;}
+  .card h3{font-size:17px;font-weight:600;color:var(--navy);}
+  .card p{font-size:13px;color:var(--ink-soft);}
+  .card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:6px;}
+  .price{font-size:19px;font-weight:700;color:var(--navy);}
+  .price small{font-size:12px;font-weight:500;color:var(--ink-soft);}
+  .add-btn{
+    background:var(--navy);color:#fff;padding:9px 16px;border-radius:9px;
+    font-size:13px;font-weight:600;transition:background .15s;
+  }
+  .add-btn:hover{background:var(--coral);}
+
+  /* CART DRAWER */
+  .overlay{
+    position:fixed;inset:0;background:rgba(16,35,58,0.4);z-index:90;
+    opacity:0;pointer-events:none;transition:opacity .2s;
+  }
+  .overlay.open{opacity:1;pointer-events:auto;}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:380px;max-width:90vw;
+    background:var(--paper);z-index:100;transform:translateX(100%);
+    transition:transform .25s ease;display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{
+    padding:22px 24px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .drawer-head h3{font-size:18px;color:var(--navy);}
+  .drawer-close{font-size:20px;color:var(--ink-soft);width:32px;height:32px;border-radius:8px;}
+  .drawer-close:hover{background:var(--cream);}
+  .drawer-items{flex:1;overflow-y:auto;padding:16px 24px;display:flex;flex-direction:column;gap:14px;}
+  .drawer-empty{color:var(--ink-soft);font-size:14px;text-align:center;padding:40px 0;}
+  .drawer-item{display:flex;gap:12px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .drawer-item .di-icon{width:44px;height:44px;border-radius:9px;background:#EFF3F1;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .drawer-item .di-icon svg{width:22px;height:22px;stroke:var(--navy);}
+  .di-info{flex:1;min-width:0;}
+  .di-info p{font-size:14px;font-weight:600;color:var(--navy);}
+  .di-info span{font-size:12px;color:var(--ink-soft);}
+  .di-qty{display:flex;align-items:center;gap:8px;}
+  .di-qty button{width:24px;height:24px;border:1px solid var(--line);border-radius:6px;font-size:14px;color:var(--navy);}
+  .di-qty button:hover{border-color:var(--navy);}
+  .di-remove{color:var(--coral-dark);font-size:12px;font-weight:500;margin-top:4px;}
+  .drawer-foot{padding:20px 24px;border-top:1px solid var(--line);}
+  .drawer-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:14px;}
+  .checkout-btn{width:100%;background:var(--coral);color:#fff;padding:14px;border-radius:10px;font-weight:600;font-size:15px;}
+  .checkout-btn:hover{background:var(--coral-dark);}
+
+  /* CONTACT */
+  .contact{max-width:1160px;margin:0 auto;padding:0 24px 60px;}
+  .contact-inner h2{font-size:22px;color:var(--navy);margin-bottom:18px;}
+  .contact-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .contact-card{
+    display:flex;align-items:center;gap:14px;background:var(--paper);
+    border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;
+    flex:1;min-width:240px;transition:border-color .15s;
+  }
+  .contact-card:hover{border-color:var(--navy);}
+  .contact-card svg{width:26px;height:26px;stroke:var(--teal);flex-shrink:0;}
+  .contact-card b{display:block;font-size:14px;color:var(--navy);}
+  .contact-card span{font-size:13px;color:var(--ink-soft);}
+
+  footer{background:var(--navy);color:#AEBBC7;padding:32px 24px;text-align:center;font-size:13px;margin-top:0;}
+  footer b{color:#fff;}
+  .footer-links{margin-top:10px;}
+  .footer-links a{color:#AEBBC7;font-weight:500;transition:color .15s;}
+  .footer-links a:hover{color:#fff;}
+
+  @media (max-width:760px){
+    .hero{grid-template-columns:1fr;padding-top:36px;}
+    nav{display:none;}
+    .hero h1{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">nova<span>eletro</span></div>
+    <nav>
+      <a href="#produtos">Produtos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-btn" id="cartBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Carrinho
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="products" id="produtos" style="padding-top:40px;">
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="contact-inner">
+    <h2>Fale com a gente</h2>
+    <div class="contact-row">
+      <a href="mailto:contato@novaeletro.com.br" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+        <div><b>E-mail</b><span>contato@novaeletro.com.br</span></div>
+      </a>
+      <a href="https://wa.me/5521978797927" target="_blank" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <div><b>WhatsApp</b><span>(21) 97879-7927</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>nova eletro</b>
+  <div class="footer-links">
+    <a href="https://github.com" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Seu carrinho</h3>
+    <button class="drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span>Total</span><span id="drawerTotal">R$ 0,00</span></div>
+    <button class="checkout-btn mp-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" width="18" height="18" style="vertical-align:-4px;margin-right:6px"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      Pagar com Mercado Pago
+    </button>
+  </div>
+</div>
+
+<script>
+const icons = {
+  ar: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="6" width="20" height="8" rx="2"/><path d="M6 18v2"/><path d="M12 18v2"/><path d="M18 18v2"/></svg>',
+  geladeira: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="5" y1="10" x2="19" y2="10"/><line x1="8" y1="5" x2="8" y2="7"/><line x1="8" y1="14" x2="8" y2="16"/></svg>',
+  lavadora: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="13" r="5"/><line x1="7" y1="6" x2="7.01" y2="6"/><line x1="10" y1="6" x2="10.01" y2="6"/></svg>',
+  ventilador: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="2"/><path d="M12 10c0-3 2-6 5-6s3 4 0 6"/><path d="M12 14c0 3-2 6-5 6s-3-4 0-6"/><path d="M10 12c-3 0-6-2-6-5s4-3 6 0"/></svg>',
+  micro: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><rect x="5" y="8" width="10" height="8" rx="1"/><circle cx="19" cy="10" r="1"/><circle cx="19" cy="14" r="1"/></svg>',
+  tv: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'
+};
+
+const products = [
+  {id:1,name:"Ar-condicionado Split 12000 BTUs",cat:"ar",tag:"Climatização",desc:"Inverter, baixo consumo, ideal para quartos.",price:2199},
+  {id:2,name:"Ar-condicionado Split 9000 BTUs",cat:"ar",tag:"Climatização",desc:"Compacto e silencioso, com controle remoto.",price:1799},
+  {id:3,name:"Geladeira Frost Free 400L",cat:"geladeira",tag:"Refrigeração",desc:"Duas portas, painel eletrônico e prateleiras ajustáveis.",price:3299},
+  {id:4,name:"Geladeira Duplex 320L",cat:"geladeira",tag:"Refrigeração",desc:"Compartimento de congelados eficiente e espaçoso.",price:2599},
+  {id:5,name:"Lavadora de Roupas 12kg",cat:"lavadora",tag:"Lavanderia",desc:"Ciclo rápido, 10 programas de lavagem.",price:1899},
+  {id:6,name:"Lava e Seca 11kg",cat:"lavadora",tag:"Lavanderia",desc:"Lava e seca em um único ciclo automático.",price:3799},
+  {id:7,name:"Ventilador de Coluna Turbo",cat:"ventilador",tag:"Climatização",desc:"3 velocidades e oscilação de 90 graus.",price:249},
+  {id:8,name:"Ventilador de Teto com Luminária",cat:"ventilador",tag:"Climatização",desc:"Controle remoto e lâmpada LED integrada.",price:389},
+  {id:9,name:"Micro-ondas 30L",cat:"micro",tag:"Cozinha",desc:"Grill integrado e 10 níveis de potência.",price:699},
+  {id:10,name:"Micro-ondas Compacto 20L",cat:"micro",tag:"Cozinha",desc:"Ideal para cozinhas pequenas, fácil de limpar.",price:499},
+  {id:11,name:"Smart TV 50\" 4K",cat:"tv",tag:"Entretenimento",desc:"Tela 4K com sistema operacional integrado.",price:2399},
+  {id:12,name:"Smart TV 43\" Full HD",cat:"tv",tag:"Entretenimento",desc:"Ótimo custo-benefício para a sala de estar.",price:1599}
+];
+
+let cart = {};
+
+function money(v){
+  return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+}
+
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = products.map(p => `
+    <div class="card">
+      <div class="card-icon">${icons[p.cat]}</div>
+      <div class="card-tag">${p.tag}</div>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="card-bottom">
+        <div class="price">${money(p.price)}</div>
+        <button class="add-btn" data-id="${p.id}">Adicionar</button>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.add-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>addToCart(parseInt(btn.dataset.id)));
+  });
+}
+
+function addToCart(id){
+  cart[id] = (cart[id]||0) + 1;
+  updateCartUI();
+  openDrawer();
+}
+
+function changeQty(id,delta){
+  cart[id] = (cart[id]||0) + delta;
+  if(cart[id]<=0) delete cart[id];
+  updateCartUI();
+}
+
+function updateCartUI(){
+  const count = Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById('cartCount').textContent = count;
+
+  const itemsEl = document.getElementById('drawerItems');
+  const ids = Object.keys(cart);
+  if(ids.length===0){
+    itemsEl.innerHTML = '<div class="drawer-empty">Seu carrinho está vazio.</div>';
+  } else {
+    itemsEl.innerHTML = ids.map(id=>{
+      const p = products.find(x=>x.id===parseInt(id));
+      const qty = cart[id];
+      return `
+        <div class="drawer-item">
+          <div class="di-icon">${icons[p.cat]}</div>
+          <div class="di-info">
+            <p>${p.name}</p>
+            <span>${money(p.price)}</span>
+            <div class="di-remove" data-remove="${p.id}">Remover</div>
+          </div>
+          <div class="di-qty">
+            <button data-dec="${p.id}">−</button>
+            <span>${qty}</span>
+            <button data-inc="${p.id}">+</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  const total = ids.reduce((sum,id)=>{
+    const p = products.find(x=>x.id===parseInt(id));
+    return sum + p.price*cart[id];
+  },0);
+  document.getElementById('drawerTotal').textContent = money(total);
+
+  itemsEl.querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click',()=>changeQty(parseInt(b.dataset.inc),1)));
+  itemsEl.querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click',()=>changeQty(parseInt(b.dataset.dec),-1)));
+  itemsEl.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{
+    delete cart[b.dataset.remove];
+    updateCartUI();
+  }));
+}
+
+function openDrawer(){
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('cartBtn').addEventListener('click',openDrawer);
+document.getElementById('drawerClose').addEventListener('click',closeDrawer);
+document.getElementById('overlay').addEventListener('click',closeDrawer);
+
+renderProducts();
+updateCartUI();
+</script>
+
+</body>
+</html>
